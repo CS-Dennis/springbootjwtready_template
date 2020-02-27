@@ -8,7 +8,7 @@ Knowing setting up JWT for spring boot is not that simple and the setup process 
 Import this folder as a maven project in your IDE. As you run this project, the **default database** will be set up in the **application.properties** file under **resources** folder.
 ```
 spring.jpa.hibernate.ddl-auto=update
-*# The default schema of database is named springboot, you can change it to your own schema name and make sure your correspoding database has that schema availabe.
+*# The default schema of database is named springboot, you can change it to your own schema name and make sure your correspoding database has that schema availabe.*
 spring.datasource.url=jdbc:mysql://localhost:3306/springboot
 spring.datasource.username=dennis
 spring.datasource.password=security
