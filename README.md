@@ -14,7 +14,7 @@ spring.datasource.username=dennis
 spring.datasource.password=security
 jwt.secret=myspringsecurityjwt
 ```
-2. UserEntity Class is the class reflecting the table for authentication in your database. As you run the app for the first time, the table named user_entity will be automatically created if it doesn't exist in the database.
+2. **UserEntity** Class is the class reflecting the table for authentication in your database. As you run the app for the first time, the table named **user_entity** will be automatically created if it doesn't exist in the database.
 You can add more columns to the table as needed. In this case, email will be a unique column and be authenticated with the value of password column.
 ```
 @Entity
@@ -86,6 +86,80 @@ public class UserEntity {
 	}
 	public void setModifieDateTime(LocalDateTime modifieDateTime) {
 		this.modifieDateTime = modifieDateTime;
+	}
+}
+```
+3. **UserDAO** Class is the class that extends CrudRepository interface for SQL queries. You can change **email** in the query to any column name you are searching a user based on.
+```
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+
+import com.springbootproject.SpringBootWithSecurity.model.UserEntity;
+
+public interface UserDAO extends CrudRepository<UserEntity, Long>{
+	@Query(value = "SELECT * from user_entity WHERE email = ?1", nativeQuery = true)
+	public List<UserEntity> findUserByEmail(String email);
+}
+```
+4. **JwtRequest** Class is the class that receive the JSON from the front end. The least two fields you need will be, in this case, email and passwrod. You can change email to other user identification field based on the identity column in your authentication table. You can also add other additional fields (e.g., gender, firstname, lastname, birthday) in this class based on your needs.
+```
+import java.io.Serializable;
+
+//This class is required for storing the email and password we receive from the client.
+public class JwtRequest implements Serializable {
+
+	private static final long serialVersionUID = 5926468583005150707L;
+	
+	private String email;
+	private String password;
+	private String firstname;
+	private String lastname;
+	
+	//need default constructor for JSON Parsing
+	public JwtRequest()
+	{
+		
+	}
+
+	public JwtRequest(String email, String password, String firstname, String lastname) {
+		this.setEmail(email);
+		this.setPassword(password);
+		this.setFirstname(firstname);
+		this.setLastname(lastname);
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 }
 ```
