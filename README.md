@@ -305,3 +305,7 @@ public class JwtAuthenticationController {
 	}
 }
 ```
+
+Thanks and enjoy!
+Dennis
+Email: ynyz2003@gmail.com
