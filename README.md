@@ -164,6 +164,7 @@ public class JwtRequest implements Serializable {
 }
 ```
 5. Last but not least, **WebSecurityConfig** Class contains all the configurations of spring boot security. In this setup, you only need to focus on the the method antMatchers parameters, in this case, **"/authenticate"** and **"/register"**. The RESTController functions linked to these two URLs are not required to be authenticated. You can add more URLs without authentication and defined the functions in the **JwtAuthenticationController** Class.
+
 **WebSecurityConfig.java**
 ```
 import org.springframework.beans.factory.annotation.Autowired;
